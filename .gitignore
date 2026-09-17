@@ -1,0 +1,4 @@
+# Full-resolution source renderings and original logo files (210MB+).
+# Only the optimised exports in assets/img/ are deployed.
+assets/renderings/
+assets/logos/

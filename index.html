@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Shops at 163rd — Coming Soon</title>
+<meta name="description" content="The Shops at 163rd. Retail space now leasing, 1,400 to 60,000 SF. 1205 NE 163rd Street, Miami, Florida 33162.">
+<link rel="icon" href="favicon.png" type="image/png">
+<meta property="og:title" content="The Shops at 163rd">
+<meta property="og:description" content="Retail space now leasing, 1,400 to 60,000 SF. 1205 NE 163rd Street, Miami, Florida.">
+<meta property="og:url" content="https://the-shops-at-163.vercel.app/">
+<meta property="og:image" content="https://the-shops-at-163.vercel.app/assets/img/hero-1600.webp">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="990">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0F2547">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400..700&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/img/hero-1600.webp" media="(min-width:701px)"
+      imagesrcset="assets/img/hero-1000.webp 1000w, assets/img/hero-1600.webp 1600w, assets/img/hero-2400.webp 2400w" imagesizes="100vw">
+<link rel="preload" as="image" href="assets/img/hero-m-800.webp" media="(max-width:700px)"
+      imagesrcset="assets/img/hero-m-800.webp 800w, assets/img/hero-m-1200.webp 1200w" imagesizes="100vw">
+
+<script>document.documentElement.className+=' js';</script>
+<style>
+:root{
+  --blue:#1c4587;
+  --blue-deep:#0F2547;
+  --blue-dark:#0B1B34;
+  --ink:#14203A;
+  --cream:#F5F2EA;
+  --platinum:#C9CDD4;
+  --hair:rgba(20,32,58,.20);
+  --hair-light:rgba(245,242,234,.22);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-lux:cubic-bezier(.16,.84,.24,1);
+  --gut:clamp(22px,5vw,80px);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--cream);
+  color:var(--ink);
+  font-family:'Jost',system-ui,sans-serif;
+  font-weight:400;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body.loading{overflow:hidden}
+img{display:block;max-width:100%}
+
+/* ---------- type primitives ----------
+   Bodoni Moda is a variable font with an optical-size axis. Left alone, browsers
+   drive opsz from font-size, so display sizes render at hairline weight and the
+   comma in "1,400" all but disappears. Every display style pins opsz explicitly. */
+.display{
+  font-family:'Bodoni Moda',Didot,'Times New Roman',serif;
+  font-optical-sizing:none;
+  font-variation-settings:'opsz' 22,'wght' 500;
+  line-height:1.04;
+  letter-spacing:-.004em;
+}
+.eyebrow{
+  font-size:clamp(10.5px,1.05vw,12px);
+  letter-spacing:.32em;
+  text-transform:uppercase;
+  font-weight:500;
+  color:var(--blue);
+}
+.eyebrow.on-dark{color:rgba(245,242,234,.72)}
+.rule{height:1px;background:var(--hair);width:100%}
+.rule.on-dark{background:var(--hair-light)}
+
+/* ---------- grain ---------- */
+.grain{
+  position:fixed;inset:0;z-index:90;pointer-events:none;opacity:.038;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- preloader ---------- */
+#pre{
+  position:fixed;inset:0;z-index:100;background:var(--cream);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;
+  transition:opacity .7s var(--ease),visibility .7s;
+}
+#pre img{width:150px;opacity:0;animation:preIn 1s var(--ease) .15s forwards}
+#pre .bar{width:132px;height:1px;background:var(--hair);position:relative;overflow:hidden}
+#pre .bar i{position:absolute;inset:0;background:var(--blue);transform:scaleX(0);transform-origin:left;animation:preBar 1.5s var(--ease) .3s forwards}
+@keyframes preIn{to{opacity:1}}
+@keyframes preBar{to{transform:scaleX(1)}}
+body.ready #pre{opacity:0;visibility:hidden}
+
+/* ---------- nav ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:70;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:clamp(18px,2.2vw,30px) var(--gut);
+  opacity:0;transition:opacity .8s var(--ease) .1s;
+}
+body.ready nav{opacity:1}
+/* two stacked marks cross-fade so the wordmark stays legible on both grounds */
+.nav-mark{position:relative;display:block;width:clamp(86px,8vw,110px);line-height:0}
+.nav-mark img{width:100%;transition:opacity .55s var(--ease)}
+.nav-mark .k{position:absolute;inset:0;opacity:0}
+.nav-mark .w{filter:drop-shadow(0 1px 12px rgba(0,0,0,.35))}
+nav.inverted .nav-mark .w{opacity:0}
+nav.inverted .nav-mark .k{opacity:1}
+.nav-cta{
+  display:inline-flex;align-items:center;
+  padding:11px 22px;
+  border:1px solid rgba(245,242,234,.45);
+  color:rgba(245,242,234,.95);text-decoration:none;
+  font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;font-weight:500;text-indent:.26em;
+  background-image:linear-gradient(var(--cream),var(--cream));
+  background-repeat:no-repeat;background-position:left center;background-size:0% 100%;
+  transition:color .45s var(--ease),background-size .6s var(--ease-lux),border-color .45s var(--ease);
+}
+.nav-cta:hover{color:var(--blue-deep);border-color:var(--cream);background-size:100% 100%}
+nav.inverted .nav-cta{color:var(--blue);border-color:rgba(28,69,135,.5);
+  background-image:linear-gradient(var(--blue),var(--blue))}
+nav.inverted .nav-cta:hover{color:var(--cream);border-color:var(--blue);background-size:100% 100%}
+
+/* ---------- hero ---------- */
+.hero{position:relative;height:100svh;min-height:560px;overflow:hidden;background:var(--blue-deep)}
+.hero .shot{position:absolute;inset:-2%}
+.hero .shot picture{display:block;width:100%;height:100%}
+.hero .shot img{width:100%;height:100%;object-fit:cover;object-position:46% 52%;
+  transform:scale(1.1);opacity:0;transition:transform 3.4s var(--ease),opacity 1.6s var(--ease)}
+body.ready .hero .shot img{transform:scale(1);opacity:1}
+
+/* The hero and the closing screen share one grade, one tint and one veil so the
+   two full-bleed images always read as the same treatment. Edit them together. */
+.hero .shot img,.closer img.shot{filter:brightness(.60) saturate(.68) contrast(1.07)}
+.hero .tint,.closer .tint{position:absolute;inset:0;background:var(--blue);mix-blend-mode:color;opacity:.44}
+.hero .veil,.closer .veil{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(76% 62% at 50% 44%,rgba(10,26,52,.72) 0%,rgba(10,26,52,.34) 46%,rgba(10,26,52,0) 78%),
+    linear-gradient(180deg,rgba(10,26,52,.70) 0%,rgba(10,26,52,.22) 30%,rgba(10,26,52,.34) 60%,rgba(10,26,52,.88) 100%),
+    radial-gradient(130% 100% at 50% 46%,rgba(10,26,52,0) 30%,rgba(10,26,52,.62) 100%);
+}
+.hero .inner{
+  position:relative;z-index:2;height:100%;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:0 var(--gut);
+}
+.hero .mark{width:clamp(210px,26vw,520px);opacity:0;transform:translateY(16px);
+  transition:opacity 1.3s var(--ease) .7s,transform 1.3s var(--ease) .7s}
+body.ready .hero .mark{opacity:1;transform:none}
+.hero .sub{margin-top:clamp(28px,3.8vw,56px);display:flex;flex-direction:column;align-items:center;gap:18px;
+  opacity:0;transform:translateY(14px);transition:opacity 1.2s var(--ease) 1.15s,transform 1.2s var(--ease) 1.15s}
+body.ready .hero .sub{opacity:1;transform:none}
+.hero .sub .line{width:34px;height:1px;background:rgba(245,242,234,.45)}
+.hero .kicker{
+  font-size:clamp(11px,1.2vw,13px);letter-spacing:.42em;text-transform:uppercase;
+  color:rgba(245,242,234,.95);font-weight:500;text-indent:.42em;
+}
+.hero .meta{display:flex;flex-direction:column;align-items:center;gap:9px}
+.hero .addr,.hero .spec{
+  font-size:clamp(10.5px,1.02vw,12px);letter-spacing:.2em;text-transform:uppercase;
+  text-indent:.2em;font-weight:400;
+}
+.hero .addr{color:rgba(245,242,234,.72)}
+.hero .spec{color:rgba(245,242,234,.55)}
+.scroll{
+  position:absolute;bottom:clamp(22px,3vw,38px);left:50%;transform:translateX(-50%);z-index:3;
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  opacity:0;transition:opacity 1s var(--ease) 1.8s;
+}
+body.ready .scroll{opacity:1}
+.scroll span{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(245,242,234,.62);text-indent:.3em;font-weight:500}
+.scroll i{width:1px;height:46px;background:linear-gradient(180deg,rgba(245,242,234,.55),transparent);display:block}
+
+/* ---------- editorial sections ---------- */
+section.ed{padding:clamp(88px,13vh,170px) var(--gut);position:relative}
+section.ed.cream{background:var(--cream)}
+section.ed.blue{background:var(--blue);color:var(--cream)}
+.grid{
+  max-width:1360px;margin:0 auto;
+  display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);
+  gap:clamp(34px,6vw,110px);align-items:start;
+}
+@media(max-width:860px){.grid{grid-template-columns:1fr;gap:34px}}
+
+.figure{
+  font-family:'Bodoni Moda',Didot,serif;
+  font-optical-sizing:none;
+  font-variation-settings:'opsz' 14,'wght' 600;   /* heavy stems so the comma reads */
+  font-size:clamp(34px,7vw,104px);line-height:.94;letter-spacing:-.005em;white-space:nowrap;
+}
+.figure .sf{font-size:.28em;vertical-align:.9em;letter-spacing:.06em;margin-left:.1em;
+  font-variation-settings:'opsz' 12,'wght' 500}
+h2.display{font-size:clamp(30px,4.6vw,60px);font-variation-settings:'opsz' 26,'wght' 500}
+.stack{display:flex;flex-direction:column;gap:clamp(16px,2vw,26px)}
+
+.facts{display:grid;grid-template-columns:1fr;gap:0;margin-top:clamp(28px,4vw,48px);max-width:580px}
+.facts div{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:19px 0;border-top:1px solid var(--hair)}
+.facts div:last-child{border-bottom:1px solid var(--hair)}
+.blue .facts div{border-color:var(--hair-light)}
+.facts dt{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--blue);white-space:nowrap;font-weight:500}
+.blue .facts dt{color:rgba(245,242,234,.7)}
+.facts dd{font-family:'Bodoni Moda',serif;font-optical-sizing:none;
+  font-variation-settings:'opsz' 16,'wght' 500;
+  font-size:clamp(17px,1.9vw,23px);text-align:right}
+.facts dd a{color:inherit;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .4s var(--ease)}
+.facts dd a:hover{border-bottom-color:currentColor}
+
+/* ---------- button ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:16px;
+  margin-top:clamp(30px,4vw,46px);
+  padding:17px 30px;
+  border:1px solid var(--blue);
+  color:var(--blue);text-decoration:none;
+  font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:500;text-indent:.26em;
+  background-image:linear-gradient(var(--blue),var(--blue));
+  background-repeat:no-repeat;background-position:left center;background-size:0% 100%;
+  transition:color .45s var(--ease),background-size .65s var(--ease-lux);
+}
+.btn svg{width:22px;height:8px;fill:none;stroke:currentColor;stroke-width:1;overflow:visible;
+  transition:transform .55s var(--ease-lux)}
+.btn:hover{color:var(--cream);background-size:100% 100%}
+.btn:hover svg{transform:translateX(5px)}
+.btn:focus-visible{outline:1px solid var(--blue);outline-offset:4px}
+.btn.on-dark{border-color:rgba(245,242,234,.45);color:var(--cream);
+  background-image:linear-gradient(var(--cream),var(--cream))}
+.btn.on-dark:hover{color:var(--blue);border-color:var(--cream)}
+.btn.on-dark:focus-visible{outline-color:var(--cream)}
+
+/* ---------- scroll progress ---------- */
+.progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:75;pointer-events:none}
+.progress i{display:block;height:100%;transform:scaleX(0);transform-origin:left;
+  background:rgba(245,242,234,.7);transition:background .5s var(--ease)}
+.progress.inverted i{background:var(--blue)}
+
+/* ---------- sticky call bar, phones only ---------- */
+.mbar{display:none}
+@media(max-width:700px){
+  .mbar{
+    display:grid;grid-template-columns:1fr 1fr;
+    position:fixed;left:0;right:0;bottom:0;z-index:80;
+    background:var(--blue);
+    padding-bottom:env(safe-area-inset-bottom);
+    transform:translateY(105%);transition:transform .55s var(--ease);
+  }
+  .mbar.on{transform:none}
+  .mbar a{
+    display:flex;align-items:center;justify-content:center;gap:10px;
+    padding:17px 10px;color:var(--cream);text-decoration:none;
+    font-size:11px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;text-indent:.22em;
+  }
+  .mbar a+a{border-left:1px solid rgba(245,242,234,.24)}
+  .mbar svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.3;
+    stroke-linecap:round;stroke-linejoin:round}
+  footer{padding-bottom:calc(clamp(22px,3vw,34px) + 62px)}
+}
+
+.sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+  clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.gal-viewport:focus-visible{outline:1px solid rgba(245,242,234,.7);outline-offset:6px}
+
+/* ---------- location ---------- */
+.place{margin-top:clamp(14px,1.8vw,22px);
+  font-size:clamp(12px,1.25vw,15px);letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(245,242,234,.7);text-indent:.22em}
+
+/* ---------- gallery ---------- */
+.gallery{background:var(--blue-dark);color:var(--cream);padding:clamp(72px,10vh,130px) 0 clamp(52px,7vh,90px);position:relative;overflow:hidden}
+.gal-head{padding:0 var(--gut);max-width:1360px;margin:0 auto clamp(30px,4vw,52px)}
+.gal-head .rule{margin-top:18px;max-width:1360px}
+
+.gal-viewport{position:relative;touch-action:pan-y}
+@media(hover:hover) and (pointer:fine){ .gal-viewport{cursor:none} }
+.gal-track{
+  display:flex;gap:clamp(12px,2.2vw,34px);
+  will-change:transform;
+  transition:transform 1.1s var(--ease-lux);
+}
+.gal-slide{
+  flex:0 0 min(78vw,1180px);aspect-ratio:16/9;overflow:hidden;position:relative;
+  background:#0a1830;
+  opacity:.2;filter:saturate(.45);
+  transition:opacity .95s var(--ease),filter .95s var(--ease);
+}
+.gal-slide img{width:100%;height:100%;object-fit:cover;transform:scale(1);
+  transition:transform 9s linear}
+.gal-slide.is-active{opacity:1;filter:none}
+.gal-slide.is-active img{transform:scale(1.07)}
+.gal-viewport.dragging .gal-track{transition:none}
+@media(max-width:760px){.gal-slide{flex-basis:86vw}}
+
+/* custom cursor */
+.gal-cursor{
+  position:absolute;left:0;top:0;width:74px;height:74px;margin:-37px 0 0 -37px;
+  border:1px solid rgba(245,242,234,.55);border-radius:50%;
+  pointer-events:none;z-index:5;
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  opacity:0;transform:translate3d(-100px,-100px,0) scale(.7);
+  transition:opacity .35s var(--ease),scale .35s var(--ease);
+}
+.gal-cursor.on{opacity:1;scale:1}
+.gal-viewport.dragging .gal-cursor{scale:.82;border-color:rgba(245,242,234,.9)}
+.gal-cursor i{width:5px;height:5px;border-left:1px solid rgba(245,242,234,.9);border-bottom:1px solid rgba(245,242,234,.9);transform:rotate(45deg)}
+.gal-cursor i.r{transform:rotate(-135deg)}
+@media(hover:none),(pointer:coarse){.gal-cursor{display:none}}
+
+.gal-foot{
+  display:flex;align-items:center;gap:clamp(18px,3vw,44px);
+  padding:clamp(30px,4vw,48px) var(--gut) 0;max-width:1360px;margin:0 auto;
+}
+.gal-count{font-size:11px;letter-spacing:.24em;font-weight:500;color:rgba(245,242,234,.9);display:flex;align-items:baseline;gap:7px;white-space:nowrap}
+.gal-count em{font-style:normal;color:rgba(245,242,234,.4)}
+.gal-count .tot{color:rgba(245,242,234,.5)}
+/* two digits plus .24em tracking need ~2.8ch; 2.1ch was clipping the second one */
+.roll{position:relative;display:inline-block;width:3.1ch;height:1.15em;overflow:hidden}
+.roll i{position:absolute;left:0;top:0;font-style:normal;transition:transform .62s var(--ease-lux),opacity .62s var(--ease-lux)}
+.roll i.enter{transform:translateY(110%);opacity:0}
+.roll i.exit{transform:translateY(-110%);opacity:0}
+.gal-prog{flex:1;height:1px;background:rgba(245,242,234,.18);position:relative;overflow:hidden;min-width:40px}
+.gal-prog i{position:absolute;inset:0;background:rgba(245,242,234,.85);transform-origin:left;transform:scaleX(0);transition:transform .9s var(--ease-lux)}
+.gal-nav{display:flex;gap:10px}
+.gal-arrow{
+  width:46px;height:46px;border:1px solid rgba(245,242,234,.3);background:none;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--cream);
+  transition:border-color .4s var(--ease),background .4s var(--ease),opacity .4s var(--ease);
+}
+.gal-arrow:hover:not(:disabled){border-color:rgba(245,242,234,.85);background:rgba(245,242,234,.08)}
+.gal-arrow:disabled{opacity:.28;cursor:default}
+.gal-arrow svg{width:13px;height:13px;fill:none;stroke:currentColor;stroke-width:1.2}
+.gal-arrow:focus-visible,.nav-cta:focus-visible,.facts dd a:focus-visible{outline:1px solid currentColor;outline-offset:4px}
+
+/* lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:120;background:rgba(9,20,38,.97);
+  display:flex;align-items:center;justify-content:center;padding:clamp(18px,4vw,58px);
+  opacity:0;visibility:hidden;transition:opacity .55s var(--ease),visibility .55s;
+}
+.lightbox.open{opacity:1;visibility:visible}
+.lightbox img{max-width:100%;max-height:100%;object-fit:contain;transform:scale(.97);transition:transform .7s var(--ease-lux)}
+.lightbox.open img{transform:scale(1)}
+.lb-close{
+  position:absolute;top:clamp(16px,3vw,34px);right:clamp(16px,3vw,34px);
+  width:46px;height:46px;border:1px solid rgba(245,242,234,.3);background:none;border-radius:50%;
+  color:var(--cream);font-size:17px;line-height:1;cursor:pointer;
+  transition:border-color .4s var(--ease)}
+.lb-close:hover{border-color:rgba(245,242,234,.85)}
+
+/* ---------- partners ---------- */
+.partners{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,4vw,64px);align-items:center;margin-top:clamp(36px,5vw,64px)}
+.partners img{width:100%;max-width:170px;height:auto;margin:0 auto;opacity:.8;transition:opacity .5s var(--ease)}
+.partners img:hover{opacity:1}
+@media(max-width:760px){.partners{grid-template-columns:repeat(2,1fr);gap:40px 28px}}
+.architect{margin-top:clamp(56px,8vw,96px);padding-top:clamp(34px,5vw,52px);border-top:1px solid var(--hair)}
+.architect img{width:190px;margin-top:22px;opacity:.88}
+
+/* ---------- closer ---------- */
+.closer{position:relative;height:100svh;min-height:540px;overflow:hidden;background:var(--blue-deep)}
+.closer img.shot{position:absolute;top:-8%;left:0;width:100%;height:116%;object-fit:cover;object-position:50% 42%;will-change:transform}
+.closer .inner{position:relative;z-index:2;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:clamp(16px,2.2vw,26px);padding:0 var(--gut)}
+.closer .hair{width:34px;height:1px;background:rgba(245,242,234,.45);display:block}
+.closer .contact{display:flex;flex-direction:column;align-items:center;gap:clamp(8px,1.2vw,14px)}
+.closer .contact a{
+  font-family:'Bodoni Moda',Didot,serif;font-optical-sizing:none;
+  font-variation-settings:'opsz' 18,'wght' 500;
+  font-size:clamp(19px,2.6vw,34px);color:var(--cream);text-decoration:none;
+  border-bottom:1px solid transparent;transition:border-color .45s var(--ease)}
+.closer .contact a:hover,.closer .contact a:focus-visible{border-bottom-color:rgba(245,242,234,.85)}
+.closer .mark{width:min(168px,44vw)}
+.closer .kicker{font-size:clamp(11px,1.15vw,12.5px);letter-spacing:.38em;text-transform:uppercase;color:rgba(245,242,234,.9);text-indent:.38em;font-weight:500}
+
+footer{
+  position:absolute;bottom:0;left:0;right:0;z-index:3;
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  padding:0 var(--gut) clamp(22px,3vw,34px);
+  font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,242,234,.58);
+}
+footer a{color:inherit;text-decoration:none;transition:color .4s var(--ease)}
+footer a:hover{color:rgba(245,242,234,.95)}
+
+/* ---------- reveal ---------- */
+.js .rv{opacity:0;transform:translateY(24px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.12s}.rv-d2{transition-delay:.24s}.rv-d3{transition-delay:.36s}
+.wipe{display:block;overflow:hidden}
+.js .wipe>*{display:block;transform:translateY(102%);transition:transform 1.15s var(--ease)}
+.js .wipe.in>*{transform:none}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  .js .rv,.js .wipe>*{opacity:1!important;transform:none!important}
+  .gal-slide.is-active img{transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+
+<body class="loading" id="top">
+
+<div id="pre"><img src="assets/img/logo-shops-ink.webp" alt=""><div class="bar"><i></i></div></div>
+<div class="grain"></div>
+<div class="progress" id="prog" aria-hidden="true"><i></i></div>
+
+<nav id="nav">
+  <a class="nav-mark" href="#top" aria-label="The Shops at 163rd">
+    <img class="w" src="assets/img/logo-shops-white.webp" alt="The Shops at 163rd">
+    <img class="k" src="assets/img/logo-shops-ink.webp" alt="" aria-hidden="true">
+  </a>
+  <a class="nav-cta" href="#contact">Inquire</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="shot">
+    <picture>
+      <!-- phones get a portrait crop rather than a centre-cut of the landscape frame -->
+      <source media="(max-width:700px)" srcset="assets/img/hero-m-800.webp 800w, assets/img/hero-m-1200.webp 1200w" sizes="100vw">
+      <img src="assets/img/hero-1600.webp"
+           srcset="assets/img/hero-1000.webp 1000w, assets/img/hero-1600.webp 1600w, assets/img/hero-2400.webp 2400w"
+           sizes="100vw" alt="The Shops at 163rd, exterior rendering" fetchpriority="high">
+    </picture>
+  </div>
+  <div class="tint"></div>
+  <div class="veil"></div>
+  <div class="inner">
+    <img class="mark" src="assets/img/logo-shops-white-lg.webp" alt="The Shops at 163rd">
+    <div class="sub">
+      <i class="line"></i>
+      <p class="kicker">Coming Soon</p>
+      <div class="meta">
+        <p class="addr">1205 NE 163rd Street &nbsp;·&nbsp; Miami, Florida</p>
+        <p class="spec">Retail &nbsp;·&nbsp; 1,400&#8202;&#8211;&#8202;60,000 SF</p>
+      </div>
+    </div>
+  </div>
+  <div class="scroll"><span>Scroll</span><i></i></div>
+</header>
+
+<!-- LEASING -->
+<section class="ed cream" id="leasing">
+  <div class="grid">
+    <div class="stack">
+      <p class="eyebrow rv">Now Leasing</p>
+      <div class="rule rv rv-d1"></div>
+    </div>
+    <div>
+      <div class="wipe"><span class="figure">1,400&#8202;&#8211;&#8202;60,000<span class="sf">SF</span></span></div>
+      <h2 class="display rv rv-d2" style="margin-top:.35em">Retail space available</h2>
+      <dl class="facts rv rv-d3">
+        <div><dt>Availability</dt><dd>Space available for rent</dd></div>
+        <div><dt>Size</dt><dd>1,400 to 60,000 SF</dd></div>
+        <div><dt>Address</dt><dd>1205 NE 163rd St, Miami, FL 33162</dd></div>
+      </dl>
+      <a class="btn rv rv-d3" href="#contact">
+        <span>Get in Touch</span>
+        <svg viewBox="0 0 22 8" aria-hidden="true"><path d="M0 4h20M16.5 1 20 4l-3.5 3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="gal-head">
+    <p class="eyebrow on-dark rv">Gallery</p>
+    <div class="rule on-dark rv rv-d1"></div>
+  </div>
+
+  <div class="gal-viewport" id="galv" tabindex="0" role="group"
+       aria-roledescription="carousel" aria-label="Project gallery, 12 renderings. Use the left and right arrow keys.">
+    <div class="gal-track" id="galt">
+      <figure class="gal-slide"><img src="assets/img/g01-1400.webp" srcset="assets/img/g01-900.webp 900w, assets/img/g01-1400.webp 1400w" sizes="(max-width:760px) 86vw, 78vw" alt="The Shops at 163rd, exterior rendering 1"></figure>
+      <figure class="gal-slide"><img src="assets/img/g02-1400.webp" srcset="assets/img/g02-900.webp 900w, assets/img/g02-1400.webp 1400w" sizes="(max-width:760px) 86vw, 78vw" alt="The Shops at 163rd, exterior rendering 2" loading="lazy"></figure>
+      <figure class="gal-slide"><img src="assets/img/g03-1400.webp" srcset="assets/img/g03-900.webp 900w, assets/img/g03-1400.webp 1400w" sizes="(max-width:760px) 86vw, 78vw" alt="The Shops at 163rd, exterior rendering 3" loading="lazy"></figure>
+      <figure class="gal-slide"><img src="assets/img/g04-1400.webp" srcset="assets/img/g04-900.webp 900w, assets/img/g04-1400.webp 1400w" sizes="(max-width:760px) 86vw, 78vw" alt="The Shops at 163rd, exterior rendering 4" loading="lazy"></figure>
+      <figure class="gal-slide"><img src="assets/img/g05-1400.webp" srcset="assets/img/g05-900.webp 900w, assets/img/g05-1400.webp 1400w" sizes="(max-width:760px) 86vw, 78vw" alt="The Shops at 163rd, exterior rendering 5" loading="lazy"></figure>
+      <figure class="gal-slide"><img src="assets/img/g06-1400.webp" srcset="assets/img/g06-900.webp 900w, assets/img/g06-1400.webp 1400w" sizes="(max-width:760px) 86vw, 78vw" alt="The Shops at 163rd, exterior rendering 6" loading="lazy"></figure>
+      <figure class="gal-slide"><img src="assets/img/g07-1400.webp" srcset="assets/img/g07-900.webp 900w, assets/img/g07-1400.webp 1400w" sizes="(max-width:760px) 86vw, 78vw" alt="The Shops at 163rd, exterior rendering 7" loading="lazy"></figure>
+      <figure class="gal-slide"><img src="assets/img/g08-1400.webp" srcset="assets/img/g08-900.webp 900w, assets/img/g08-1400.webp 1400w" sizes="(max-width:760px) 86vw, 78vw" alt="The Shops at 163rd, exterior rendering 8" loading="lazy"></figure>
+      <figure class="gal-slide"><img src="assets/img/g09-1400.webp" srcset="assets/img/g09-900.webp 900w, assets/img/g09-1400.webp 1400w" sizes="(max-width:760px) 86vw, 78vw" alt="The Shops at 163rd, exterior rendering 9" loading="lazy"></figure>
+      <figure class="gal-slide"><img src="assets/img/g10-1400.webp" srcset="assets/img/g10-900.webp 900w, assets/img/g10-1400.webp 1400w" sizes="(max-width:760px) 86vw, 78vw" alt="The Shops at 163rd, exterior rendering 10" loading="lazy"></figure>
+      <figure class="gal-slide"><img src="assets/img/g11-1400.webp" srcset="assets/img/g11-900.webp 900w, assets/img/g11-1400.webp 1400w" sizes="(max-width:760px) 86vw, 78vw" alt="The Shops at 163rd, exterior rendering 11" loading="lazy"></figure>
+      <figure class="gal-slide"><img src="assets/img/g12-1400.webp" srcset="assets/img/g12-900.webp 900w, assets/img/g12-1400.webp 1400w" sizes="(max-width:760px) 86vw, 78vw" alt="The Shops at 163rd, exterior rendering 12" loading="lazy"></figure>
+    </div>
+    <div class="gal-cursor" id="galc"><i></i><i class="r"></i></div>
+  </div>
+
+  <div class="gal-foot">
+    <p class="gal-count" aria-hidden="true"><span class="roll" id="galn"><i>01</i></span><em>/</em><span class="tot">12</span></p>
+    <span class="sr" id="galsr" aria-live="polite" aria-atomic="true">Image 1 of 12</span>
+    <div class="gal-prog"><i id="galp"></i></div>
+    <div class="gal-nav">
+      <button class="gal-arrow" id="galprev" aria-label="Previous image" aria-controls="galt">
+        <svg viewBox="0 0 13 13" aria-hidden="true"><path d="M8 1 2.5 6.5 8 12"/></svg></button>
+      <button class="gal-arrow" id="galnext" aria-label="Next image" aria-controls="galt">
+        <svg viewBox="0 0 13 13" aria-hidden="true"><path d="M5 1l5.5 5.5L5 12"/></svg></button>
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION -->
+<section class="ed blue" id="location">
+  <div class="grid">
+    <div class="stack">
+      <p class="eyebrow on-dark rv">Location</p>
+      <div class="rule on-dark rv rv-d1"></div>
+    </div>
+    <div>
+      <div class="wipe"><h2 class="display" style="font-size:clamp(30px,4.8vw,66px)">1205 NE 163rd Street</h2></div>
+      <p class="place rv rv-d2">Miami, Florida 33162</p>
+      <a class="btn on-dark rv rv-d3" href="https://www.google.com/maps/dir/?api=1&amp;destination=1205%20NE%20163rd%20St%2C%20Miami%2C%20FL%2033162"
+         target="_blank" rel="noopener noreferrer">
+        <span>Get Directions</span>
+        <svg viewBox="0 0 22 8" aria-hidden="true"><path d="M0 4h20M16.5 1 20 4l-3.5 3"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="ed cream">
+  <div class="grid">
+    <div class="stack">
+      <p class="eyebrow rv">Development</p>
+      <div class="rule rv rv-d1"></div>
+    </div>
+    <div>
+      <div class="wipe"><h2 class="display">Partners</h2></div>
+      <div class="partners rv rv-d2">
+        <img src="assets/img/p-ys.webp" alt="YS Capital" loading="lazy">
+        <img src="assets/img/p-taillard.webp" alt="Taillard Capital" loading="lazy">
+        <img src="assets/img/p-ark.webp" alt="Ark Ventures" loading="lazy">
+        <img src="assets/img/p-tuesday.webp" alt="Tuesday Properties" loading="lazy">
+      </div>
+      <div class="architect rv rv-d3">
+        <p class="eyebrow">Architecture</p>
+        <img src="assets/img/architect-dti.svg" alt="DTI Architects" loading="lazy">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLOSER / CONTACT -->
+<section class="closer" id="contact" data-par>
+  <img class="shot" src="assets/img/closer-1600.webp" srcset="assets/img/closer-1000.webp 1000w, assets/img/closer-1600.webp 1600w, assets/img/closer-2400.webp 2400w" sizes="100vw" alt="The Shops at 163rd" loading="lazy">
+  <div class="tint"></div>
+  <div class="veil"></div>
+  <div class="inner">
+    <img class="mark rv" src="assets/img/logo-shops-white.webp" alt="The Shops at 163rd">
+    <p class="kicker rv rv-d1">Coming Soon</p>
+    <i class="hair rv rv-d1"></i>
+    <p class="eyebrow on-dark rv rv-d2">Leasing Enquiries</p>
+    <div class="contact rv rv-d3">
+      <a href="tel:+13055021289">305&thinsp;·&thinsp;502&thinsp;·&thinsp;1289</a>
+      <a href="mailto:Leasing@TheShops163.com">Leasing@TheShops163.com</a>
+    </div>
+  </div>
+  <footer>
+    <span>1205 NE 163rd St, Miami, FL 33162</span>
+    <span>Retail 1,400&#8202;&#8211;&#8202;60,000 SF</span>
+  </footer>
+</section>
+
+<div class="mbar" id="mbar">
+  <a href="tel:+13055021289"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M5.2 1.8 6.6 4.6 5.1 6.1a8.5 8.5 0 0 0 4.8 4.8l1.5-1.5 2.8 1.4v2.6c0 .6-.5 1-1.1 1A12.6 12.6 0 0 1 1.2 2.9c0-.6.4-1.1 1-1.1Z"/></svg>Call</a>
+  <a href="mailto:Leasing@TheShops163.com"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 3.5h13v9h-13zM1.5 4l6.5 4.5L14.5 4"/></svg>Email</a>
+</div>
+
+<div class="lightbox" id="lb" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Enlarged image">
+  <button class="lb-close" id="lbclose" aria-label="Close">&#215;</button>
+  <img id="lbimg" alt="">
+</div>
+
+<script>
+(function(){
+  var b=document.body;
+  var reduce=window.matchMedia('(prefers-reduced-motion:reduce)');
+
+  function go(){ b.classList.remove('loading'); b.classList.add('ready'); }
+  window.addEventListener('load', function(){ setTimeout(go, 1500); });
+  setTimeout(go, 4000);
+
+  /* ---------- reveal ---------- */
+  var targets=[].slice.call(document.querySelectorAll('.rv,.wipe'));
+  var io=new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  },{threshold:.18, rootMargin:'0px 0px -8% 0px'});
+  targets.forEach(function(el){ io.observe(el); });
+  function sweep(){
+    var vh=window.innerHeight;
+    targets.forEach(function(el){
+      if(el.classList.contains('in')) return;
+      if(el.getBoundingClientRect().top < vh*0.92){ el.classList.add('in'); io.unobserve(el); }
+    });
+  }
+  sweep();
+  window.addEventListener('load', sweep);
+
+  /* ---------- nav inversion + band parallax ---------- */
+  var nav=document.getElementById('nav');
+  var creams=[].slice.call(document.querySelectorAll('section.ed.cream'));
+  var pars=[].slice.call(document.querySelectorAll('[data-par]'));
+  var progEl=document.getElementById('prog'), progBar=progEl.firstElementChild;
+  var mbar=document.getElementById('mbar');
+  var hero=document.querySelector('.hero');
+  var ticking=false;
+  function frame(){
+    ticking=false;
+    var vh=window.innerHeight, navY=nav.getBoundingClientRect().bottom;
+    var inv=creams.some(function(s){
+      var r=s.getBoundingClientRect(); return r.top<navY-12 && r.bottom>navY;
+    });
+    nav.classList.toggle('inverted', inv);
+    progEl.classList.toggle('inverted', inv);
+
+    var max=document.documentElement.scrollHeight-vh;
+    progBar.style.transform='scaleX('+(max>0?Math.min(1,Math.max(0,window.scrollY/max)):0)+')';
+
+    // the call bar arrives once the hero is mostly behind you
+    mbar.classList.toggle('on', window.scrollY > hero.offsetHeight*0.7);
+
+    if(reduce.matches) return;
+    pars.forEach(function(p){
+      var r=p.getBoundingClientRect();
+      if(r.bottom<-100||r.top>vh+100) return;
+      var prog=(r.top+r.height/2-vh/2)/vh;
+      p.querySelector('img').style.transform='translate3d(0,'+(prog*-4).toFixed(2)+'%,0)';
+    });
+  }
+  function onScroll(){ if(!ticking){ ticking=true; requestAnimationFrame(function(){ sweep(); frame(); }); } }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  window.addEventListener('resize', onScroll);
+  // browsers restore scroll position after init, so re-sync once everything has settled
+  window.addEventListener('load', frame);
+  frame();
+
+  /* ---------- gallery ---------- */
+  var vp=document.getElementById('galv');
+  if(!vp) return;
+  var tr=document.getElementById('galt');
+  var slides=[].slice.call(tr.children);
+  var N=slides.length, idx=0;
+  var sw=0, gap=0, x=0;
+  var prevBtn=document.getElementById('galprev'), nextBtn=document.getElementById('galnext');
+  var prog=document.getElementById('galp'), numEl=document.getElementById('galn');
+  var sr=document.getElementById('galsr');
+  var cur=document.getElementById('galc');
+
+  function centreFor(n){ return (vp.clientWidth - sw)/2 - n*(sw+gap); }
+
+  function roll(n){
+    var t=n<10?'0'+n:''+n;
+    if(numEl.dataset.v===t) return;
+    numEl.dataset.v=t;
+    // clear anything already leaving, so clicking faster than the 620ms roll
+    // cannot stack digits on top of each other
+    [].slice.call(numEl.children).forEach(function(c){
+      if(c.className==='exit') numEl.removeChild(c);
+    });
+    var out=numEl.lastElementChild;
+    var el=document.createElement('i');
+    el.textContent=t; el.className='enter';
+    numEl.appendChild(el);
+    void el.offsetWidth;            // commit the entry state before transitioning out of it
+    el.className='';
+    if(out){
+      out.className='exit';
+      setTimeout(function(){ if(out.parentNode===numEl) numEl.removeChild(out); }, 700);
+    }
+  }
+
+  function apply(instant){
+    x=centreFor(idx);
+    if(instant){ tr.style.transition='none'; }
+    tr.style.transform='translate3d('+x+'px,0,0)';
+    if(instant){ void tr.offsetWidth; tr.style.transition=''; }
+    slides.forEach(function(s,k){ s.classList.toggle('is-active', k===idx); });
+    prog.style.transform='scaleX('+((idx+1)/N)+')';
+    prevBtn.disabled = idx===0;
+    nextBtn.disabled = idx===N-1;
+    roll(idx+1);
+    sr.textContent='Image '+(idx+1)+' of '+N;
+  }
+  function go2(n, instant){ idx=Math.max(0,Math.min(N-1,n)); apply(instant); }
+
+  function measure(){
+    sw=slides[0].getBoundingClientRect().width;
+    var cs=getComputedStyle(tr);
+    gap=parseFloat(cs.columnGap||cs.gap)||0;
+    apply(true);
+  }
+  measure();
+  window.addEventListener('resize', measure);
+  window.addEventListener('load', measure);
+
+  prevBtn.addEventListener('click', function(){ go2(idx-1); });
+  nextBtn.addEventListener('click', function(){ go2(idx+1); });
+
+  /* drag with inertia */
+  var dragging=false, startX=0, startPos=0, lastX=0, lastT=0, vel=0, moved=0;
+  vp.addEventListener('pointerdown', function(e){
+    if(e.pointerType==='mouse' && e.button!==0) return;
+    dragging=true; moved=0; startX=e.clientX; startPos=x; lastX=e.clientX; lastT=performance.now(); vel=0;
+    vp.classList.add('dragging');
+    try{ vp.setPointerCapture(e.pointerId); }catch(err){}
+  });
+  vp.addEventListener('pointermove', function(e){
+    if(cur){
+      var r0=vp.getBoundingClientRect();
+      cur.style.transform='translate3d('+(e.clientX-r0.left)+'px,'+(e.clientY-r0.top)+'px,0)';
+    }
+    if(!dragging) return;
+    var dx=e.clientX-startX;
+    moved=Math.max(moved,Math.abs(dx));
+    var now=performance.now(), dt=now-lastT;
+    if(dt>0){ vel=(e.clientX-lastX)/dt; lastX=e.clientX; lastT=now; }
+    var nx=startPos+dx, min=centreFor(N-1), max=centreFor(0);
+    if(nx>max) nx=max+(nx-max)*.3;
+    if(nx<min) nx=min+(nx-min)*.3;
+    x=nx;
+    tr.style.transform='translate3d('+x+'px,0,0)';
+  });
+  function endDrag(){
+    if(!dragging) return;
+    dragging=false; vp.classList.remove('dragging');
+    var projected = x + vel*240;                       // momentum carries past the release point
+    go2(Math.round((( vp.clientWidth - sw)/2 - projected)/(sw+gap)));
+  }
+  vp.addEventListener('pointerup', endDrag);
+  vp.addEventListener('pointercancel', endDrag);
+  vp.addEventListener('lostpointercapture', endDrag);
+  vp.addEventListener('dragstart', function(e){ e.preventDefault(); });
+
+  if(cur){
+    vp.addEventListener('pointerenter', function(e){ if(e.pointerType==='mouse') cur.classList.add('on'); });
+    vp.addEventListener('pointerleave', function(){ cur.classList.remove('on'); });
+  }
+
+  /* horizontal wheel / trackpad */
+  var wheelAt=0;
+  vp.addEventListener('wheel', function(e){
+    if(Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;   // vertical stays with the page
+    e.preventDefault();
+    var now=Date.now();
+    if(now-wheelAt < 420) return;
+    wheelAt=now;
+    go2(idx + (e.deltaX>0?1:-1));
+  }, {passive:false});
+
+  /* arrow keys, only while the gallery is on screen */
+  var onScreen=false;
+  new IntersectionObserver(function(es){ onScreen=es[0].isIntersecting; },{threshold:.35})
+    .observe(vp);
+  document.addEventListener('keydown', function(e){
+    if(lb.classList.contains('open')){
+      if(e.key==='Escape') closeLB();
+      return;
+    }
+    if(!onScreen && !vp.contains(document.activeElement)) return;
+    if(e.key==='ArrowRight'){ e.preventDefault(); go2(idx+1); }
+    if(e.key==='ArrowLeft'){ e.preventDefault(); go2(idx-1); }
+    if(e.key==='Enter' && document.activeElement===vp){
+      e.preventDefault(); openLB(slides[idx].querySelector('img'));
+    }
+  });
+
+  /* lightbox */
+  var lb=document.getElementById('lb'), lbimg=document.getElementById('lbimg');
+  var lastFocus=null;
+  function openLB(img){
+    lastFocus=document.activeElement;
+    lbimg.src=img.currentSrc||img.src; lbimg.alt=img.alt;
+    lb.classList.add('open'); lb.setAttribute('aria-hidden','false');
+    b.style.overflow='hidden';
+    document.getElementById('lbclose').focus();
+  }
+  function closeLB(){
+    lb.classList.remove('open'); lb.setAttribute('aria-hidden','true');
+    b.style.overflow='';
+    if(lastFocus) lastFocus.focus();
+  }
+  slides.forEach(function(s,k){
+    s.addEventListener('click', function(){
+      if(moved>6) return;                 // a drag is not a click
+      if(k!==idx){ go2(k); return; }       // a neighbour click just brings it forward
+      openLB(s.querySelector('img'));
+    });
+  });
+  document.getElementById('lbclose').addEventListener('click', closeLB);
+  lb.addEventListener('click', function(e){ if(e.target===lb) closeLB(); });
+})();
+</script>
+</body>
+</html>
