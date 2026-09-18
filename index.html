@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The Shops at 163rd — Coming Soon</title>
-<meta name="description" content="The Shops at 163rd. Retail space now leasing, 1,400 to 60,000 SF. 1205 NE 163rd Street, Miami, Florida 33162.">
+<meta name="description" content="The Shops at 163rd. Retail opportunities from 1,400 SF to 60,000 SF in a 600,000 SF center. 1205 NE 163rd Street, Miami, Florida 33162.">
 <link rel="icon" href="favicon.png" type="image/png">
 <meta property="og:title" content="The Shops at 163rd">
-<meta property="og:description" content="Retail space now leasing, 1,400 to 60,000 SF. 1205 NE 163rd Street, Miami, Florida.">
+<meta property="og:description" content="Retail opportunities from 1,400 SF to 60,000 SF. 1205 NE 163rd Street, Miami, Florida.">
 <meta property="og:url" content="https://the-shops-at-163.vercel.app/">
 <meta property="og:image" content="https://the-shops-at-163.vercel.app/assets/img/hero-1600.webp">
 <meta property="og:image:width" content="1600">
@@ -159,13 +159,11 @@ body.ready .hero .sub{opacity:1;transform:none}
   font-size:clamp(11px,1.2vw,13px);letter-spacing:.42em;text-transform:uppercase;
   color:rgba(245,242,234,.95);font-weight:500;text-indent:.42em;
 }
-.hero .meta{display:flex;flex-direction:column;align-items:center;gap:9px}
-.hero .addr,.hero .spec{
+.hero .addr{
   font-size:clamp(10.5px,1.02vw,12px);letter-spacing:.2em;text-transform:uppercase;
-  text-indent:.2em;font-weight:400;
+  text-indent:.2em;font-weight:400;color:rgba(245,242,234,.72);
 }
-.hero .addr{color:rgba(245,242,234,.72)}
-.hero .spec{color:rgba(245,242,234,.55)}
+
 .scroll{
   position:absolute;bottom:clamp(22px,3vw,38px);left:50%;transform:translateX(-50%);z-index:3;
   display:flex;flex-direction:column;align-items:center;gap:10px;
@@ -186,14 +184,6 @@ section.ed.blue{background:var(--blue);color:var(--cream)}
 }
 @media(max-width:860px){.grid{grid-template-columns:1fr;gap:34px}}
 
-.figure{
-  font-family:'Bodoni Moda',Didot,serif;
-  font-optical-sizing:none;
-  font-variation-settings:'opsz' 14,'wght' 600;   /* heavy stems so the comma reads */
-  font-size:clamp(34px,7vw,104px);line-height:.94;letter-spacing:-.005em;white-space:nowrap;
-}
-.figure .sf{font-size:.28em;vertical-align:.9em;letter-spacing:.06em;margin-left:.1em;
-  font-variation-settings:'opsz' 12,'wght' 500}
 h2.display{font-size:clamp(30px,4.6vw,60px);font-variation-settings:'opsz' 26,'wght' 500}
 .stack{display:flex;flex-direction:column;gap:clamp(16px,2vw,26px)}
 
@@ -293,6 +283,34 @@ h2.display{font-size:clamp(30px,4.6vw,60px);font-variation-settings:'opsz' 26,'w
 .gal-viewport.dragging .gal-track{transition:none}
 @media(max-width:760px){.gal-slide{flex-basis:86vw}}
 
+/* thumbnail strip: makes it obvious at a glance that there is more than one image */
+.gal-thumbs{
+  display:flex;gap:clamp(7px,.8vw,11px);
+  overflow-x:auto;scrollbar-width:none;-ms-overflow-style:none;
+  scroll-snap-type:x proximity;
+  padding:clamp(24px,3vw,36px) var(--gut) 0;
+  max-width:1360px;margin:0 auto;
+}
+.gal-thumbs::-webkit-scrollbar{display:none}
+.gal-thumb{
+  position:relative;flex:0 0 auto;
+  width:clamp(60px,6.2vw,88px);aspect-ratio:16/9;
+  padding:0;border:0;background:none;cursor:pointer;
+  opacity:.32;filter:saturate(.45);
+  transition:opacity .45s var(--ease),filter .45s var(--ease);
+  scroll-snap-align:center;
+}
+.gal-thumb img{width:100%;height:100%;object-fit:cover}
+.gal-thumb::after{
+  content:'';position:absolute;left:0;right:0;bottom:-7px;height:1px;
+  background:var(--cream);transform:scaleX(0);transform-origin:left;
+  transition:transform .5s var(--ease-lux);
+}
+.gal-thumb:hover{opacity:.72;filter:none}
+.gal-thumb.is-active{opacity:1;filter:none}
+.gal-thumb.is-active::after{transform:scaleX(1)}
+.gal-thumb:focus-visible{outline:1px solid rgba(245,242,234,.8);outline-offset:3px}
+
 /* custom cursor */
 .gal-cursor{
   position:absolute;left:0;top:0;width:74px;height:74px;margin:-37px 0 0 -37px;
@@ -350,8 +368,15 @@ h2.display{font-size:clamp(30px,4.6vw,60px);font-variation-settings:'opsz' 26,'w
 .lb-close:hover{border-color:rgba(245,242,234,.85)}
 
 /* ---------- partners ---------- */
-.partners{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,4vw,64px);align-items:center;margin-top:clamp(36px,5vw,64px)}
-.partners img{width:100%;max-width:170px;height:auto;margin:0 auto;opacity:.8;transition:opacity .5s var(--ease)}
+.partners{--h:clamp(40px,4.2vw,58px);
+  display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,4vw,64px);
+  align-items:center;justify-items:center;margin-top:clamp(30px,4vw,52px)}
+.partners img{width:auto;max-width:100%;object-fit:contain;opacity:.82;transition:opacity .5s var(--ease)}
+/* stacked lockups need more height than wide wordmarks to read at the same size */
+.partners .l-ys{height:calc(var(--h)*1.22)}
+.partners .l-taillard{height:calc(var(--h)*0.80)}
+.partners .l-ark{height:calc(var(--h)*1.14)}
+.partners .l-tuesday{height:calc(var(--h)*0.84)}
 .partners img:hover{opacity:1}
 @media(max-width:760px){.partners{grid-template-columns:repeat(2,1fr);gap:40px 28px}}
 .architect{margin-top:clamp(56px,8vw,96px);padding-top:clamp(34px,5vw,52px);border-top:1px solid var(--hair)}
@@ -430,10 +455,7 @@ footer a:hover{color:rgba(245,242,234,.95)}
     <div class="sub">
       <i class="line"></i>
       <p class="kicker">Coming Soon</p>
-      <div class="meta">
-        <p class="addr">1205 NE 163rd Street &nbsp;·&nbsp; Miami, Florida</p>
-        <p class="spec">Retail &nbsp;·&nbsp; 1,400&#8202;&#8211;&#8202;60,000 SF</p>
-      </div>
+      <p class="addr">1205 NE 163rd Street &nbsp;·&nbsp; Miami, Florida</p>
     </div>
   </div>
   <div class="scroll"><span>Scroll</span><i></i></div>
@@ -443,16 +465,15 @@ footer a:hover{color:rgba(245,242,234,.95)}
 <section class="ed cream" id="leasing">
   <div class="grid">
     <div class="stack">
-      <p class="eyebrow rv">Now Leasing</p>
+      <p class="eyebrow rv">Retail Opportunities</p>
       <div class="rule rv rv-d1"></div>
     </div>
     <div>
-      <div class="wipe"><span class="figure">1,400&#8202;&#8211;&#8202;60,000<span class="sf">SF</span></span></div>
-      <h2 class="display rv rv-d2" style="margin-top:.35em">Retail space available</h2>
-      <dl class="facts rv rv-d3">
-        <div><dt>Availability</dt><dd>Space available for rent</dd></div>
-        <div><dt>Size</dt><dd>1,400 to 60,000 SF</dd></div>
-        <div><dt>Address</dt><dd>1205 NE 163rd St, Miami, FL 33162</dd></div>
+      <div class="wipe"><h2 class="display" style="font-size:clamp(30px,4.9vw,64px)">Spaces from 1,400 SF<br>to 60,000 SF</h2></div>
+      <dl class="facts rv rv-d2">
+        <div><dt>Availability</dt><dd>Multiple retail spaces</dd></div>
+        <div><dt>Space Sizes</dt><dd>1,400 SF &#8211; 60,000 SF</dd></div>
+        <div><dt>Center Size</dt><dd>600,000 SF+/-</dd></div>
       </dl>
       <a class="btn rv rv-d3" href="#contact">
         <span>Get in Touch</span>
@@ -486,6 +507,21 @@ footer a:hover{color:rgba(245,242,234,.95)}
       <figure class="gal-slide"><img src="assets/img/g12-1400.webp" srcset="assets/img/g12-900.webp 900w, assets/img/g12-1400.webp 1400w" sizes="(max-width:760px) 86vw, 78vw" alt="The Shops at 163rd, exterior rendering 12" loading="lazy"></figure>
     </div>
     <div class="gal-cursor" id="galc"><i></i><i class="r"></i></div>
+  </div>
+
+  <div class="gal-thumbs" id="galthumbs" aria-label="Gallery thumbnails">
+      <button class="gal-thumb" type="button" data-i="0" aria-label="Show image 1 of 12"><img src="assets/img/t01-320.webp" alt="" loading="lazy"></button>
+      <button class="gal-thumb" type="button" data-i="1" aria-label="Show image 2 of 12"><img src="assets/img/t02-320.webp" alt="" loading="lazy"></button>
+      <button class="gal-thumb" type="button" data-i="2" aria-label="Show image 3 of 12"><img src="assets/img/t03-320.webp" alt="" loading="lazy"></button>
+      <button class="gal-thumb" type="button" data-i="3" aria-label="Show image 4 of 12"><img src="assets/img/t04-320.webp" alt="" loading="lazy"></button>
+      <button class="gal-thumb" type="button" data-i="4" aria-label="Show image 5 of 12"><img src="assets/img/t05-320.webp" alt="" loading="lazy"></button>
+      <button class="gal-thumb" type="button" data-i="5" aria-label="Show image 6 of 12"><img src="assets/img/t06-320.webp" alt="" loading="lazy"></button>
+      <button class="gal-thumb" type="button" data-i="6" aria-label="Show image 7 of 12"><img src="assets/img/t07-320.webp" alt="" loading="lazy"></button>
+      <button class="gal-thumb" type="button" data-i="7" aria-label="Show image 8 of 12"><img src="assets/img/t08-320.webp" alt="" loading="lazy"></button>
+      <button class="gal-thumb" type="button" data-i="8" aria-label="Show image 9 of 12"><img src="assets/img/t09-320.webp" alt="" loading="lazy"></button>
+      <button class="gal-thumb" type="button" data-i="9" aria-label="Show image 10 of 12"><img src="assets/img/t10-320.webp" alt="" loading="lazy"></button>
+      <button class="gal-thumb" type="button" data-i="10" aria-label="Show image 11 of 12"><img src="assets/img/t11-320.webp" alt="" loading="lazy"></button>
+      <button class="gal-thumb" type="button" data-i="11" aria-label="Show image 12 of 12"><img src="assets/img/t12-320.webp" alt="" loading="lazy"></button>
   </div>
 
   <div class="gal-foot">
@@ -524,19 +560,18 @@ footer a:hover{color:rgba(245,242,234,.95)}
 <section class="ed cream">
   <div class="grid">
     <div class="stack">
-      <p class="eyebrow rv">Development</p>
+      <p class="eyebrow rv">Development Team</p>
       <div class="rule rv rv-d1"></div>
     </div>
     <div>
-      <div class="wipe"><h2 class="display">Partners</h2></div>
-      <div class="partners rv rv-d2">
-        <img src="assets/img/p-ys.webp" alt="YS Capital" loading="lazy">
-        <img src="assets/img/p-taillard.webp" alt="Taillard Capital" loading="lazy">
-        <img src="assets/img/p-ark.webp" alt="Ark Ventures" loading="lazy">
-        <img src="assets/img/p-tuesday.webp" alt="Tuesday Properties" loading="lazy">
+      <div class="partners rv">
+        <img class="l-ys" src="assets/img/p-ys.webp" alt="YS Capital" loading="lazy">
+        <img class="l-taillard" src="assets/img/p-taillard.webp" alt="Taillard Capital" loading="lazy">
+        <img class="l-ark" src="assets/img/p-ark.webp" alt="Ark Ventures" loading="lazy">
+        <img class="l-tuesday" src="assets/img/p-tuesday.webp" alt="Tuesday Properties" loading="lazy">
       </div>
       <div class="architect rv rv-d3">
-        <p class="eyebrow">Architecture</p>
+        <p class="eyebrow">Architect</p>
         <img src="assets/img/architect-dti.svg" alt="DTI Architects" loading="lazy">
       </div>
     </div>
@@ -647,6 +682,8 @@ footer a:hover{color:rgba(245,242,234,.95)}
   var prevBtn=document.getElementById('galprev'), nextBtn=document.getElementById('galnext');
   var prog=document.getElementById('galp'), numEl=document.getElementById('galn');
   var sr=document.getElementById('galsr');
+  var strip=document.getElementById('galthumbs');
+  var thumbs=[].slice.call(strip.children);
   var cur=document.getElementById('galc');
 
   function centreFor(n){ return (vp.clientWidth - sw)/2 - n*(sw+gap); }
@@ -683,6 +720,14 @@ footer a:hover{color:rgba(245,242,234,.95)}
     nextBtn.disabled = idx===N-1;
     roll(idx+1);
     sr.textContent='Image '+(idx+1)+' of '+N;
+    thumbs.forEach(function(t,k){
+      t.classList.toggle('is-active', k===idx);
+      t.setAttribute('aria-current', k===idx ? 'true' : 'false');
+    });
+    // keep the active thumbnail in view without scrolling the page itself
+    var t=thumbs[idx];
+    if(t) strip.scrollTo({left:t.offsetLeft - strip.clientWidth/2 + t.offsetWidth/2,
+                          behavior: reduce.matches ? 'auto' : 'smooth'});
   }
   function go2(n, instant){ idx=Math.max(0,Math.min(N-1,n)); apply(instant); }
 
@@ -696,6 +741,7 @@ footer a:hover{color:rgba(245,242,234,.95)}
   window.addEventListener('resize', measure);
   window.addEventListener('load', measure);
 
+  thumbs.forEach(function(t,k){ t.addEventListener('click', function(){ go2(k); }); });
   prevBtn.addEventListener('click', function(){ go2(idx-1); });
   nextBtn.addEventListener('click', function(){ go2(idx+1); });
 
