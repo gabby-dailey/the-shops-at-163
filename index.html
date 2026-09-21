@@ -441,7 +441,7 @@ footer a:hover{color:rgba(245,242,234,.95)}
 <header class="hero">
   <div class="shot">
     <picture>
-      <!-- phones get a portrait crop rather than a centre-cut of the landscape frame -->
+      <!-- phones get a portrait crop rather than a center-cut of the landscape frame -->
       <source media="(max-width:700px)" srcset="assets/img/hero-m-800.webp 800w, assets/img/hero-m-1200.webp 1200w" sizes="100vw">
       <img src="assets/img/hero-1600.webp"
            srcset="assets/img/hero-1000.webp 1000w, assets/img/hero-1600.webp 1600w, assets/img/hero-2400.webp 2400w"
@@ -587,7 +587,7 @@ footer a:hover{color:rgba(245,242,234,.95)}
     <img class="mark rv" src="assets/img/logo-shops-white.webp" alt="The Shops at 163rd">
     <p class="kicker rv rv-d1">Coming Soon</p>
     <i class="hair rv rv-d1"></i>
-    <p class="eyebrow on-dark rv rv-d2">Leasing Enquiries</p>
+    <p class="eyebrow on-dark rv rv-d2">Leasing Inquiries</p>
     <div class="contact rv rv-d3">
       <a href="tel:+13055021289">305&thinsp;·&thinsp;502&thinsp;·&thinsp;1289</a>
       <a href="mailto:Leasing@TheShops163.com">Leasing@TheShops163.com</a>
@@ -614,7 +614,26 @@ footer a:hover{color:rgba(245,242,234,.95)}
   var b=document.body;
   var reduce=window.matchMedia('(prefers-reduced-motion:reduce)');
 
-  function go(){ b.classList.remove('loading'); b.classList.add('ready'); }
+  // The landing sequence only works from the top of the page, so never let the
+  // browser restore a previous scroll position. A deep link (#contact) still wins.
+  if('scrollRestoration' in history) history.scrollRestoration='manual';
+  if(!location.hash){
+    window.scrollTo(0,0);
+    window.addEventListener('load', function(){ if(!location.hash) window.scrollTo(0,0); });
+  }
+
+  var started=false;
+  function go(){
+    if(started) return;
+    started=true;
+    b.classList.remove('loading'); b.classList.add('ready');
+    // the preloader locks scrolling, which swallows the browser's own jump to a
+    // #hash on first load, so honour it here once scrolling is live again
+    try{
+      var target=location.hash && document.querySelector(location.hash);
+      if(target) target.scrollIntoView({behavior:'instant', block:'start'});
+    }catch(e){}
+  }
   window.addEventListener('load', function(){ setTimeout(go, 1500); });
   setTimeout(go, 4000);
 
@@ -686,7 +705,7 @@ footer a:hover{color:rgba(245,242,234,.95)}
   var thumbs=[].slice.call(strip.children);
   var cur=document.getElementById('galc');
 
-  function centreFor(n){ return (vp.clientWidth - sw)/2 - n*(sw+gap); }
+  function centerFor(n){ return (vp.clientWidth - sw)/2 - n*(sw+gap); }
 
   function roll(n){
     var t=n<10?'0'+n:''+n;
@@ -710,7 +729,7 @@ footer a:hover{color:rgba(245,242,234,.95)}
   }
 
   function apply(instant){
-    x=centreFor(idx);
+    x=centerFor(idx);
     if(instant){ tr.style.transition='none'; }
     tr.style.transform='translate3d('+x+'px,0,0)';
     if(instant){ void tr.offsetWidth; tr.style.transition=''; }
@@ -763,7 +782,7 @@ footer a:hover{color:rgba(245,242,234,.95)}
     moved=Math.max(moved,Math.abs(dx));
     var now=performance.now(), dt=now-lastT;
     if(dt>0){ vel=(e.clientX-lastX)/dt; lastX=e.clientX; lastT=now; }
-    var nx=startPos+dx, min=centreFor(N-1), max=centreFor(0);
+    var nx=startPos+dx, min=centerFor(N-1), max=centerFor(0);
     if(nx>max) nx=max+(nx-max)*.3;
     if(nx<min) nx=min+(nx-min)*.3;
     x=nx;
