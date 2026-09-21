@@ -614,28 +614,37 @@ footer a:hover{color:rgba(245,242,234,.95)}
   var b=document.body;
   var reduce=window.matchMedia('(prefers-reduced-motion:reduce)');
 
-  // The landing sequence only works from the top of the page, so never let the
-  // browser restore a previous scroll position. A deep link (#contact) still wins.
+  // This page always opens at the top, with no exceptions. A shared link that
+  // still carries a #hash (copied from the address bar after clicking Inquire)
+  // would otherwise drop the visitor at the very bottom of the page.
   if('scrollRestoration' in history) history.scrollRestoration='manual';
-  if(!location.hash){
-    window.scrollTo(0,0);
-    window.addEventListener('load', function(){ if(!location.hash) window.scrollTo(0,0); });
+  if(location.hash){
+    try{ history.replaceState(null,'',location.pathname+location.search); }catch(e){}
   }
+  window.scrollTo(0,0);
+  window.addEventListener('load', function(){ window.scrollTo(0,0); });
 
   var started=false;
   function go(){
     if(started) return;
     started=true;
     b.classList.remove('loading'); b.classList.add('ready');
-    // the preloader locks scrolling, which swallows the browser's own jump to a
-    // #hash on first load, so honour it here once scrolling is live again
-    try{
-      var target=location.hash && document.querySelector(location.hash);
-      if(target) target.scrollIntoView({behavior:'instant', block:'start'});
-    }catch(e){}
   }
   window.addEventListener('load', function(){ setTimeout(go, 1500); });
   setTimeout(go, 4000);
+
+  // In-page links scroll without pushing a #hash into the address bar, so a URL
+  // copied from this page is always a clean link that opens at the top.
+  document.addEventListener('click', function(e){
+    var a = e.target && e.target.closest && e.target.closest('a[href^="#"]');
+    if(!a) return;
+    e.preventDefault();
+    var href=a.getAttribute('href'), mode=reduce.matches?'auto':'smooth';
+    if(href==='#'||href==='#top'){ window.scrollTo({top:0,behavior:mode}); return; }
+    var t=null;
+    try{ t=document.querySelector(href); }catch(err){}
+    if(t) t.scrollIntoView({behavior:mode, block:'start'});
+  });
 
   /* ---------- reveal ---------- */
   var targets=[].slice.call(document.querySelectorAll('.rv,.wipe'));
